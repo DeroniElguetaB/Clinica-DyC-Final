@@ -5,7 +5,11 @@ const commentSchema = new mongoose.Schema(
     content: {
       type: String,
       required: true,
-    },
+      },
+        name: {  // Nuevo campo añadido
+          type: String,
+         
+        },
     postId: {
       type: String,
       required: true,

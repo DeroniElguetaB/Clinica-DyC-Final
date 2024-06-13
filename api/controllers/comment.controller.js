@@ -2,7 +2,7 @@ import Comment from '../models/comment.model.js';
 
 export const createComment = async (req, res, next) => {
   try {
-    const { content, postId, userId } = req.body;
+    const { content, name, postId, userId } = req.body;
 
     if (userId !== req.user.id) {
       return next(
@@ -12,6 +12,7 @@ export const createComment = async (req, res, next) => {
 
     const newComment = new Comment({
       content,
+      name,
       postId,
       userId,
     });
@@ -71,6 +72,7 @@ export const editComment = async (req, res, next) => {
       req.params.commentId,
       {
         content: req.body.content,
+        name: req.body.name,
       },
       { new: true }
     );

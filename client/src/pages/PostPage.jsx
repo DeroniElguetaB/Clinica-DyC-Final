@@ -155,10 +155,10 @@ export default function PostPage() {
               <h1 className='flex flex-auto text-center items-center pl-5'>
                 Historial Medico
               </h1>
-              <div className='items-end self-end place-content-end place-items-end place-self-end flex justify-self-end justify-end justify-items-end justify-self-end content-end'>
+              <div className='items-end self-end place-content-end place-items-end place-self-end flex  justify-end justify-items-end justify-self-end content-end'>
                 <Dropdown
                   label="Crear orden"
-                  className='w-full flex justify-center p-4 text-white text-sm font-medium rounded-lg'
+                  className='droppost w-full flex justify-center p-4 text-white text-sm font-medium rounded-lg'
                 >
                   <Dropdown.Item onClick={() => setEstadoModalRecetaMedica(true)}>
                     Receta Medica

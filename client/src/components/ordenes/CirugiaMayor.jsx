@@ -41,6 +41,7 @@ export default function CommentCirugiaMayor({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
+          
         }),
       });
       const data = await res.json();

@@ -203,16 +203,17 @@ export default function CreatePost() {
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
-              {/* <TextInput
-              placeholder='Fecha Nacimiento'
+              <TextInput
+              placeholder='Edad'
               required
               id='edad'
               className='flex-1'
               onChange={(e) =>
                 setFormData({ ...formData, edad: e.target.value })
               }
-              /> */}
-              <div className=''>
+              />
+              {/* FECHA DE NACIMIENTO PICKER */}
+              {/* <div className=''>
                 <DatePicker
                   id='edad'
                   className='flex-1 block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-md rounded-lg'
@@ -229,7 +230,7 @@ export default function CreatePost() {
                   }}
                 />
                 <label className='flex text-sm'>Fecha de Nacimiento</label>
-              </div>
+              </div> */}
             </div>  
             <div className='flex flex-col gap-4 sm:flex-row justify-between'>
               <TextInput

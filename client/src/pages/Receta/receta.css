@@ -45,9 +45,39 @@ display: none;
     background: none !important;
 }
 
+.droppost{
+    width: 20% !important;
+    left: -17px !important;
+}
+.droppost li button{
+text-align: left !important;
+}
+
+
+
 
 @media (min-width: 768px) and (max-width: 1123px) {
     .arreglocoment {
       width: 73% !important;
     }
+}
+
+
+@media (min-width: 300px) and (max-width: 900px) {
+    .droppost {
+        width: 40% !important;
+    
+    }}
+
+
+
+@media (min-width: 300px) and (max-width: 600px) {
+    .detallescoment{
+        display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: center;
+    align-items: flex-end !important;
+}
 }

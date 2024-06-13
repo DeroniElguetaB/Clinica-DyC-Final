@@ -137,7 +137,7 @@ export default function CommentSection({ postId }) {
     <div className='max-w-2xl mx-auto w-full p-3'>
           <>
           {comments.map((comment) => (
-            <div class="flex my-2 bg-gray-500 bg-opacity-10 rounded-lg p-4">
+            <div class="detallescoment flex my-2 bg-gray-500 bg-opacity-10 rounded-lg p-4">
               <div class="flex flex-auto pr-5">
                 <h1>{new Date(comment.updatedAt).toLocaleDateString()}</h1>
               </div>
