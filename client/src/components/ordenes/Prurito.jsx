@@ -1,5 +1,5 @@
 import { Alert, Button, Modal } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,  useRef  } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
@@ -15,6 +15,9 @@ export default function CommentPrurito({ postId }) {
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
   
+  const h1Ref = useRef();
+  const pRefs = useRef([]);
+
   const stripHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || "";
@@ -26,6 +29,10 @@ export default function CommentPrurito({ postId }) {
       return;
     }
     const strippedComment = stripHtml(comment);
+    const h1Content = h1Ref.current.innerText;
+    const pContents = pRefs.current.map(p => p.innerText).join('\n');
+    const combinedContent = `${h1Content}\n${pContents}`;
+
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -33,7 +40,7 @@ export default function CommentPrurito({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: combinedContent,
           postId,
           userId: currentUser._id,
         }),
@@ -93,14 +100,6 @@ export default function CommentPrurito({ postId }) {
     }
   };
 
-  const handleEdit = async (comment, editedContent) => {
-    setComments(
-      comments.map((c) =>
-        c._id === comment._id ? { ...c, content: editedContent } : c
-      )
-    );
-  };
-
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {
@@ -130,28 +129,28 @@ export default function CommentPrurito({ postId }) {
             <form onSubmit={handleSubmit} className=''>
                 <div className=''>
                     <div>
-                        <h1 className='font-semibold pb-3'>Indicaciones: </h1>
+                        <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones: </h1>
                     </div>
                     <div>
-                        <p>DIETA RICA EN FIBRA, 30 GR. </p>
+                        <p ref={el => pRefs.current[0] = el}>DIETA RICA EN FIBRA, 30 GR. </p>
                     </div>
                     <div>
-                        <p>LIQUIDOS 2 – 2.5 LITROS. </p>
+                        <p ref={el => pRefs.current[1] = el}>LIQUIDOS 2 – 2.5 LITROS. </p>
                     </div>
                     <div>
-                        <p>LAVAR CON AGUA Y JABON HIPOALERGENICO. </p>
+                        <p ref={el => pRefs.current[2] = el}>LAVAR CON AGUA Y JABON HIPOALERGENICO. </p>
                     </div>
                     <div>
-                        <p>SECAR CON SACADOR DE PELO. </p>
+                        <p ref={el => pRefs.current[3] = el}>SECAR CON SACADOR DE PELO. </p>
                     </div>
                     <div>
-                        <p>DEJAR APOSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
+                        <p ref={el => pRefs.current[4] = el}>DEJAR APOSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
                     </div>
                     <div>
-                        <p>LAVAR ROPA INTERIOR CON DETERGENTE HIPOALERGENICO. </p>
+                        <p ref={el => pRefs.current[5] = el}>LAVAR ROPA INTERIOR CON DETERGENTE HIPOALERGENICO. </p>
                     </div>
                     <div>
-                        <p>CICALFATE 1 VEZ POR LA NOCHE. </p>
+                        <p ref={el => pRefs.current[6] = el}>CICALFATE 1 VEZ POR LA NOCHE. </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

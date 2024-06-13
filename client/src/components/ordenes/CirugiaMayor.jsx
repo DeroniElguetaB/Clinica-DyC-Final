@@ -1,5 +1,5 @@
 import { Alert, Button, Modal } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
@@ -14,6 +14,8 @@ export default function CommentCirugiaMayor({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+  const h1Ref = useRef();
+  const pRefs = useRef([]);
   
   const stripHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -26,6 +28,9 @@ export default function CommentCirugiaMayor({ postId }) {
       return;
     }
     const strippedComment = stripHtml(comment);
+    const h1Content = h1Ref.current.innerText;
+    const pContents = pRefs.current.map(p => p.innerText).join('\n');
+    const combinedContent = `${h1Content}\n${pContents}`;
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -33,7 +38,7 @@ export default function CommentCirugiaMayor({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: combinedContent,
           postId,
           userId: currentUser._id,
         }),
@@ -130,28 +135,28 @@ export default function CommentCirugiaMayor({ postId }) {
             <form onSubmit={handleSubmit} className=''>
                 <div className=''>
                     <div>
-                        <h1 className='font-semibold pb-3'>Indicaciones: </h1>
+                        <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones: </h1>
                     </div>
                     <div>
-                        <p>RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[0] = el}>RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p>METRONIDAZOL 1,5 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[1] = el}>METRONIDAZOL 1,5 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p>AMPICILINA 2 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[2] = el}>AMPICILINA 2 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p>CONTUMAX UN SOBRE DISUELTO EN 250 CC DE AGUA, PRIMERO SIETE SOBRES a LAS 19 HORAS DEL DÍA PREVIO A LA CIRUGÍA, REPETIR PROCESO CON LOS SIETE SOBRES RESTANTES A LAS 21 HORAS. </p>
+                        <p ref={el => pRefs.current[3] = el}>CONTUMAX UN SOBRE DISUELTO EN 250 CC DE AGUA, PRIMERO SIETE SOBRES A LAS 19 HORAS DEL DÍA PREVIO A LA CIRUGÍA, REPETIR PROCESO CON LOS SIETE SOBRES RESTANTES A LAS 21 HORAS. </p>
                     </div>
                     <div>
-                        <p>FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[4] = el}>FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                     <div>
-                        <p>CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA</p>
+                        <p ref={el => pRefs.current[5] = el}>CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA</p>
                     </div>
                     <div>
-                        <p>METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[6] = el}>METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

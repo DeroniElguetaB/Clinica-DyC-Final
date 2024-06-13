@@ -1,8 +1,9 @@
-import { Alert, Button, Modal } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { Alert, Button, Modal, Select, Textarea } from 'flowbite-react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { MultiSelect } from 'primereact/multiselect';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -13,6 +14,14 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [selectedCities, setSelectedCities] = useState(null);
+    const cities = [
+        { name: 'New York', code: 'NY' },
+        { name: 'Rome', code: 'RM' },
+        { name: 'London', code: 'LDN' },
+        { name: 'Istanbul', code: 'IST' },
+        { name: 'Paris', code: 'PRS' }
+    ];
   const navigate = useNavigate();
   
   const stripHtml = (html) => {
@@ -128,13 +137,15 @@ export default function CommentExamenesLaboratorio({ postId }) {
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
         <form onSubmit={handleSubmit} className=''>
-          <ReactQuill
+          {/* <MultiSelect value={selectedCities} onChange={(e) => setSelectedCities(e.value)} options={cities} optionLabel="name" display="chip" 
+                placeholder="Select Cities" maxSelectedLabels={3} className="w-full md:w-20rem" /> */}
+          {/* <Textarea
             placeholder='Escribir descripcion...'
             className='h-25'
             required
             onChange={handleChange}
             value={comment}
-          />
+          /> */}
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>
               Guardar

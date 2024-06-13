@@ -1,5 +1,5 @@
 import { Alert, Button, Modal } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
@@ -14,6 +14,9 @@ export default function CommentPostExodoncia({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+  const h1Ref = useRef();
+  const h3Ref = useRef()
+  const pRefs = useRef([]);
   
   const stripHtml = (html) => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -26,6 +29,10 @@ export default function CommentPostExodoncia({ postId }) {
       return;
     }
     const strippedComment = stripHtml(comment);
+    const h1Content = h1Ref.current.innerText;
+    const h3Content = h3Ref.current.innerText;
+    const pContents = pRefs.current.map(p => p.innerText).join('\n');
+    const combinedContent = `${h1Content}\n${h3Content}\n${pContents}`;
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -33,7 +40,7 @@ export default function CommentPostExodoncia({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: combinedContent,
           postId,
           userId: currentUser._id,
         }),
@@ -130,31 +137,31 @@ export default function CommentPostExodoncia({ postId }) {
             <form onSubmit={handleSubmit} className=''>
                 <div className=''>
                     <div>
-                      <h1 className='font-semibold pb-3'>Indicaciones:</h1>
+                      <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones:</h1>
                     </div>
                     <div>
-                        <h3 className='pb-1'>Estimado paciente: </h3>
+                        <h3 className='pb-1' ref={h3Ref}>Estimado paciente: </h3>
                     </div>
                     <div>
-                        <p>Se informa que luego de ser sometido a una exodoncia usted debe cumplir las siguientes indicaciones: </p>
+                        <p ref={el => pRefs.current[0] = el}>Se informa que luego de ser sometido a una exodoncia usted debe cumplir las siguientes indicaciones: </p>
                     </div>
                     <div>
-                        <p>1. Reposo relativo por dos días. Reposo deportivo por 5 días. Dormir con la cabeza elevada por dos días. </p>
+                        <p ref={el => pRefs.current[1] = el}>1. Reposo relativo por dos días. Reposo deportivo por 5 días. Dormir con la cabeza elevada por dos días. </p>
                     </div>
                     <div>
-                        <p>2. Régimen papilla licuada fría/tibia por dos días. Luego continuar con régimen blando hasta el control.  </p>
+                        <p ref={el => pRefs.current[2] = el}>2. Régimen papilla licuada fría/tibia por dos días. Luego continuar con régimen blando hasta el control.  </p>
                     </div>
                     <div>
-                        <p>3. Frío local intermitente por dos días. Luego calor local por 2 días. </p>
+                        <p ref={el => pRefs.current[3] = el}>3. Frío local intermitente por dos días. Luego calor local por 2 días. </p>
                     </div>
                     <div>
-                        <p>4. Higiene oral con cepillado suave después de cada comida.  </p>
+                        <p ref={el => pRefs.current[4] = el}>4. Higiene oral con cepillado suave después de cada comida.  </p>
                     </div>
                     <div>
-                        <p>5. No fumar ni beber alcohol.  </p>
+                        <p ref={el => pRefs.current[5] = el}>5. No fumar ni beber alcohol.  </p>
                     </div>
                     <div>
-                        <p>6. Solicitar control SOS en caso de: dolor intenso que no cede con la analgesia, sangrado activo, fiebre, dolor o dificultad para tragar. </p>
+                        <p ref={el => pRefs.current[6] = el}>6. Solicitar control SOS en caso de: dolor intenso que no cede con la analgesia, sangrado activo, fiebre, dolor o dificultad para tragar. </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

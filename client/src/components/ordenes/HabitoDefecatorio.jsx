@@ -41,6 +41,7 @@ export default function CommentHabitoDefecatorio({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
+      
         }),
       });
       const data = await res.json();
