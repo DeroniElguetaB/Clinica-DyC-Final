@@ -36,6 +36,7 @@ export default function CommentRecetaMedica({ postId }) {
           content: strippedComment,
           postId,
           userId: currentUser._id,
+          name: 'Receta Medica',
         }),
       });
       const data = await res.json();

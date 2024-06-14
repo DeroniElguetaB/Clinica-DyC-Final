@@ -125,6 +125,7 @@ export default function DashComments() {
                 <Table.HeadCell>Creado el</Table.HeadCell>
                 <Table.HeadCell>Paciente</Table.HeadCell>
                 <Table.HeadCell>Diagnostico</Table.HeadCell>
+                <Table.HeadCell>Tipo</Table.HeadCell>
                 <Table.HeadCell></Table.HeadCell>
                 {/* <Table.HeadCell>Id receta</Table.HeadCell> */}
               </Table.Head>
@@ -137,6 +138,7 @@ export default function DashComments() {
                     <Table.Cell className="">{postsMap[comment.postId]}</Table.Cell>
                     {/* <Table.Cell>{comment.postId}</Table.Cell> */}
                     <Table.Cell className="">{truncateContent(comment.content, 6)}</Table.Cell>
+                    <Table.Cell>{comment.name}</Table.Cell>
                     <Table.Cell>
                       <span
                         onClick={() => {

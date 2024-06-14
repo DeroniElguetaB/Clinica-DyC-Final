@@ -164,7 +164,7 @@ export default function CommentSection({ postId }) {
           ))}
         </>
       {comments.length === 0 ? (
-        <p className='text-sm my-5'>No tiene recetas aun</p>
+        <p className='text-sm my-5'>No tiene ordenes aun</p>
       ) : (
         <>
         </>

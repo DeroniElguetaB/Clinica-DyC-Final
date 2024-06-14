@@ -41,7 +41,7 @@ export default function CommentHabitoDefecatorio({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
-      
+          name: 'Indicaciones Habito Defecatorio',
         }),
       });
       const data = await res.json();

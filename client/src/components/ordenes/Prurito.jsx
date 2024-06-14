@@ -43,6 +43,7 @@ export default function CommentPrurito({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
+          name: 'Indicaciones Prurito',
         }),
       });
       const data = await res.json();

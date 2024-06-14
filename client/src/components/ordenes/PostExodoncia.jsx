@@ -43,6 +43,7 @@ export default function CommentPostExodoncia({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
+          name: 'Indicaciones Post Exodoncia',
         }),
       });
       const data = await res.json();

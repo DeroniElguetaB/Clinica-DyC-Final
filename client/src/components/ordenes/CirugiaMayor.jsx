@@ -41,7 +41,7 @@ export default function CommentCirugiaMayor({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
-          
+          name: 'Indicaciones Cirugia Mayor',
         }),
       });
       const data = await res.json();

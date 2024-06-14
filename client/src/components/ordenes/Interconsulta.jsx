@@ -36,6 +36,7 @@ export default function CommentInterconsulta({ postId }) {
           content: strippedComment,
           postId,
           userId: currentUser._id,
+          name: 'Interconsulta',
         }),
       });
       const data = await res.json();

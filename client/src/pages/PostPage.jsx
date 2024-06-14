@@ -29,6 +29,7 @@ export default function PostPage() {
   const [recentPosts, setRecentPosts] = useState(null);
 
   // USE STATE MODAL
+
   const [estadoModalRecetaMedica, setEstadoModalRecetaMedica] = useState(false);
   const [estadoModalInterconsulta, setEstadoModalInterconsulta] = useState(false);
   const [estadoModalFonoaudiologia, setEstadoModalFonoaudiologia] = useState(false);
@@ -79,12 +80,24 @@ export default function PostPage() {
     }
   }, []);
 
+  function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+    return edad;
+  }
+
   if (loading)
     return (
       <div className='flex justify-center items-center min-h-screen'>
         <Spinner size='xl' />
       </div>
     );
+    
   return (
     <div className='min-h-screen flex flex-col md:flex-row'>
       <div className='md:w-56'>
@@ -115,7 +128,7 @@ export default function PostPage() {
                 <div class="flex justify-center items-center flex-col space-y-1 text-lg font-medium leading-6">
                   <h3 class="text-xl font-semibold text-teal-800 dark:text-white">{post && post.contenido}</h3>
                   <p class="text-gray-500 dark:text-indigo-300">{post && post.title}</p>
-                  <p class="text-gray-500 dark:text-indigo-300">{post && post.edad}</p>
+                  <p class="text-gray-500 dark:text-indigo-300">{calcularEdad(post?.edad)} años</p>
                   <div className=''>
                     <Button className='inline-block m-1' color='gray' pill size='xs'>
                       {post && post.category}
@@ -179,7 +192,7 @@ export default function PostPage() {
                     Cirugia Mayor
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setEstadoModalCirugiaMayorAmbulatoria(true)}>
-                    Cirugia Mayor Ambulatoria
+                    Cirugia Mayor Amb.
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setEstadoModalExamenLaboratorio(true)}>
                     Examen Lab.
@@ -211,7 +224,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p>{calcularEdad(post?.edad)} años  </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -242,7 +255,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años</p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -273,7 +286,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -304,7 +317,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -335,7 +348,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -366,7 +379,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -397,7 +410,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -428,7 +441,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p>{calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -459,7 +472,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -490,7 +503,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>
@@ -521,7 +534,7 @@ export default function PostPage() {
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Edad: </h1>
-                        <p> {post && post.edad} </p>
+                        <p> {calcularEdad(post?.edad)} años </p>
                     </div>
                     <div className='flex items-start text-lg font pb-2'>
                         <h1 className='font-semibold pr-1'>Sexo:</h1>

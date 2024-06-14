@@ -41,6 +41,7 @@ export default function CommentCirugiaMayorAmbulatoria({ postId }) {
           content: combinedContent,
           postId,
           userId: currentUser._id,
+          name: 'Indicaciones Cirugia Mayor Ambulatoria',
         }),
       });
       const data = await res.json();

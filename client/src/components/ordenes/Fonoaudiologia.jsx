@@ -36,6 +36,7 @@ export default function CommentFonoaudiologia({ postId }) {
           content: strippedComment,
           postId,
           userId: currentUser._id,
+          name: 'Fonoaudiologia',
         }),
       });
       const data = await res.json();

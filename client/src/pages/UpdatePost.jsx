@@ -204,37 +204,31 @@ export default function UpdatePost() {
             />     
           </div>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-          
             <TextInput
               type='text'
               placeholder='Email'
               required
               id='email'
-              className='flex-1'
+              className='flex-1 pt-7'
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
               value={formData.email}
             />
             <div className=''>
-                <DatePicker
-                id='edad'
-                className='flex-1 block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-md rounded-lg'
-                showIcon
-                icon={<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path d="M6.445 11.688V6.354h-.633A13 13 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61zm1.188-1.305c.047.64.594 1.406 1.703 1.406c1.258 0 2-1.066 2-2.871c0-1.934-.781-2.668-1.953-2.668c-.926 0-1.797.672-1.797 1.809c0 1.16.824 1.77 1.676 1.77c.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164c-.664 0-1.008-.45-1.05-.82zm2.953-2.317c0 .696-.559 1.18-1.184 1.18c-.601 0-1.144-.383-1.144-1.2c0-.823.582-1.21 1.168-1.21c.633 0 1.16.398 1.16 1.23"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/></g></svg>}
-                locale={es}
-                selected={selectedDate}
-                dateFormat="dd/MM/yyyy"
-                maxDate={new Date()}
-                placeholderText='dd/mm/aaaa'
-                onChange={(date) => {
-                  setSelectedDate(date);
-                  setFormData({ ...formData, edad: date.toISOString().split('T')[0] });
-                }}
-                value={formData.edad}
-                />
-                <label className='flex text-sm'>Fecha de Nacimiento</label>
-              </div>  
+              <label className='flex text-sm pb-2'>Fecha de Nacimiento</label>
+              <TextInput
+              type='date'
+              placeholder='dd/mm/aaaa'
+              required
+              id='edad'
+              className='flex-1'
+              value={formData.edad}
+              onChange={(e) =>
+                setFormData({ ...formData, edad: e.target.value })
+              }
+              />
+            </div>
           </div>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <TextInput

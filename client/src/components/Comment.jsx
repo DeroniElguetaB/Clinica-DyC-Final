@@ -120,6 +120,17 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
     ));
   };
 
+  function calcularEdad(fechaNacimiento) {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mes = hoy.getMonth() - nacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+        edad--;
+    }
+    return edad;
+  }
+
   return (
     <div className='flex'>
       <div className='flex'>
@@ -146,6 +157,9 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               setState={setEstadoModal}
             >
               <div ref={printRef} className='p-10' >
+                <div>
+                  <h1 className='pb-3 text-lg font-semibold'>{comment.name && comment.name}</h1>
+                </div>
                 <div className='border-2 border-teal-500 p-5 rounded-md	'>
                   <div className='flex items-start text-lg'>
                     <h3 className='font-semibold pr-1'>Nombre: </h3>
@@ -160,11 +174,11 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                     <p>{post && post.category}</p>
                   </div>
                   <div className='flex items-start text-lg font'>
-                    <h3 className='font-semibold pr-1'>Fecha de nacimiento: </h3>
-                    <p>{post && post.edad}</p>
+                    <h3 className='font-semibold pr-1'>Edad: </h3>
+                    <p>{calcularEdad(post?.edad)} años </p>
                   </div>
                   <div className='flex items-start text-lg font'>
-                    <h3 className='font-semibold pr-1'>Fecha emision receta: </h3>
+                    <h3 className='font-semibold pr-1'>Fecha emision orden: </h3>
                     <p>{new Date(comment.updatedAt).toLocaleDateString()}</p>
                   </div>
                 </div>
@@ -204,7 +218,9 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
             </ModalReceta>
             <p className='flex flex-auto text-black-700 pr-2'>{truncateContent(comment.content,6)}</p>
             <div className='flex flex-auto'>
-              <h1 className='flex flex-auto text-gray-500 ml-2 mr-5'>Tipo: rectologia</h1>
+              <h1 className='flex flex-auto text-gray-500 ml-2 mr-5'>Tipo: 
+                <span className='pl-2 text-gray-700 dark:text-white'>{comment.name && comment.name}</span>
+              </h1>
             </div>
             <div className='items-center text-xs dark:border-gray-700 max-w-fit gap-2 self-start place-self-end'>
               {currentUser &&

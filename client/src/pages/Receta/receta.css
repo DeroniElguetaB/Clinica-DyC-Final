@@ -46,15 +46,17 @@ display: none;
 }
 
 .droppost{
-    width: 20% !important;
+    width: 17% !important;
     left: -17px !important;
 }
 .droppost li button{
 text-align: left !important;
 }
 
-
-
+.droppost li button:hover{
+    background-color: rgb(59, 134, 134, 0.3) !important; 
+    border-radius: 10px;
+}
 
 @media (min-width: 768px) and (max-width: 1123px) {
     .arreglocoment {

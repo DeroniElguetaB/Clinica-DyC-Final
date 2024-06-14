@@ -36,6 +36,7 @@ export default function CommentCertificado({ postId }) {
           content: strippedComment,
           postId,
           userId: currentUser._id,
+          name: 'Certificado',
         }),
       });
       const data = await res.json();
