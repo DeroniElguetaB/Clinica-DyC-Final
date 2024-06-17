@@ -14,8 +14,6 @@ import DashSidebar from '../components/DashSidebar';
 import { Link } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import './Receta/receta.css';
-import DatePicker, {registerLocale} from "react-datepicker";
-import { es } from 'date-fns/locale'
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function CreatePost() {

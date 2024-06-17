@@ -15,6 +15,7 @@ export default function DashPosts() {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState('');
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -86,6 +87,14 @@ export default function DashPosts() {
     return edad;
   }
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript son 0-11
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div className='p-4 md:mx-auto arreglocoment'>
       <div className="flex justify-between">
@@ -115,7 +124,7 @@ export default function DashPosts() {
                 <Table.HeadCell>Rut</Table.HeadCell>
                 <Table.HeadCell>Edad</Table.HeadCell>
                 <Table.HeadCell>Sexo</Table.HeadCell>
-                <Table.HeadCell>Creado el</Table.HeadCell>
+                <Table.HeadCell>Fecha Nacimiento</Table.HeadCell>
                 <Table.HeadCell></Table.HeadCell>
                 <Table.HeadCell></Table.HeadCell>
                 <Table.HeadCell></Table.HeadCell>
@@ -143,9 +152,14 @@ export default function DashPosts() {
                         {post.category}
                       </Link>
                     </Table.Cell>
-                    <Table.Cell className="">
+                    {/* <Table.Cell className="">
                       <Link to={`/post/${post.slug}`}>
                         {new Date(post.updatedAt).toLocaleDateString()}
+                      </Link>
+                    </Table.Cell> */}
+                    <Table.Cell className="">
+                      <Link to={`/post/${post.slug}`}>
+                        {formatDate(post.edad)}
                       </Link>
                     </Table.Cell>
                     <Table.Cell className="">

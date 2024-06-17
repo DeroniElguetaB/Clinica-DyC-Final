@@ -64,7 +64,6 @@ text-align: left !important;
     }
 }
 
-
 @media (min-width: 300px) and (max-width: 900px) {
     .droppost {
         width: 40% !important;

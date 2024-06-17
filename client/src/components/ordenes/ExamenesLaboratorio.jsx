@@ -1,11 +1,10 @@
-import { Alert, Button, Modal, Select, Textarea } from 'flowbite-react';
+import { Alert, Button, Modal, Select, Textarea} from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import { MultiSelect } from 'primereact/multiselect';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { MultiSelect } from "react-multi-select-component";
 
 export default function CommentExamenesLaboratorio({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -14,27 +13,41 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
-  const [selectedCities, setSelectedCities] = useState(null);
-    const cities = [
-        { name: 'New York', code: 'NY' },
-        { name: 'Rome', code: 'RM' },
-        { name: 'London', code: 'LDN' },
-        { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
-    ];
-  const navigate = useNavigate();
+  const [selected, setSelected] = useState([]);
   
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
+  const options = [
+    { label: "hemograma", value: "hemograma" },
+    { label: "creatinemia", value: "creatinemia" },
+    { label: "electrolitos plasmaticos", value: "electrolitos plasmaticos"},
+    { label: "pruebas de coagulacion", value: "pruebas de coagulacion"},
+    { label: "perfil bioquimico", value: "perfil bioquimico"},
+    { label: "perfil hepatico", value: "perfil hepatico"},
+    { label: "perfil lipidico", value: "perfil lipidico"},
+    { label: "anticuerpos anti endomisio", value: "anticuerpos anti endomisio"},
+    { label: "anticuerpos anti transglutaminasa", value: "anticuerpos anti transglutaminasa"},
+    { label: "procalcitonina", value: "procalcitonina"},
+    { label: "directo de deposiciones", value: "directo de deposiciones"},
+    { label: "coprocultivo", value: "coprocultivo"},
+    { label: "grupo y rh", value: "grupo y rh"},
+    { label: "parasitologico seriado", value: "parasitologico seriado"},
+    { label: "panel ets", value: "panel ets"},
+  ];
+  const navigate = useNavigate();
+
+  const overrideStrings = {
+    selectSomeItems: "Selecciona...",
+    allItemsAreSelected: "Todos los examenes están seleccionados.",
+    selectAll: "Seleccionar todo",
+    search: "Buscar",
+    selectAllFiltered: 'Seleccionar todo'
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 1000) {
-      return;
-    }
-    const strippedComment = stripHtml(comment);
+    
+    const selectedValues = selected.map(option => option.value);
+    console.log(selectedValues);
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -42,7 +55,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: selectedValues,
           postId,
           userId: currentUser._id,
         }),
@@ -133,19 +146,22 @@ export default function CommentExamenesLaboratorio({ postId }) {
     setComment(value);
   };
 
+
   return (
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
-        <form onSubmit={handleSubmit} className=''>
-          {/* <MultiSelect value={selectedCities} onChange={(e) => setSelectedCities(e.value)} options={cities} optionLabel="name" display="chip" 
-                placeholder="Select Cities" maxSelectedLabels={3} className="w-full md:w-20rem" /> */}
-          {/* <Textarea
-            placeholder='Escribir descripcion...'
-            className='h-25'
-            required
-            onChange={handleChange}
-            value={comment}
-          /> */}
+        <form onSubmit={handleSubmit}>
+          <label className='font-semibold'>Seleccionar Examenes</label>
+          <div className='pt-3 pr-20 pb-5'>
+            <MultiSelect
+              className='text-sm'
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              labelledBy="Select"
+              overrideStrings={overrideStrings}
+            />
+          </div>
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>
               Guardar
