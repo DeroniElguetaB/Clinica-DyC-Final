@@ -1,9 +1,8 @@
-import { Alert, Button, Modal, Select, Textarea} from 'flowbite-react';
+import { Alert, Button, Modal } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import 'react-quill/dist/quill.snow.css';
 import { MultiSelect } from "react-multi-select-component";
 
 export default function CommentExamenesLaboratorio({ postId }) {
@@ -42,12 +41,11 @@ export default function CommentExamenesLaboratorio({ postId }) {
     selectAllFiltered: 'Seleccionar todo'
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value);
-    console.log(selectedValues);
+    const selectedValues = selected.map(option => option.value).join(', '); // array a texto
+    console.log(selectedValues);//funciona
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -65,7 +63,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
         setComment('');
         setCommentError(null);
         setComments([data, ...comments]);
-        window.location.reload(); // Reload the page
+        window.location.reload(); 
       }
     } catch (error) {
       setCommentError(error.message);
@@ -146,7 +144,6 @@ export default function CommentExamenesLaboratorio({ postId }) {
     setComment(value);
   };
 
-
   return (
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
@@ -204,6 +201,3 @@ export default function CommentExamenesLaboratorio({ postId }) {
     </div>
   );
 }
-
-
-
