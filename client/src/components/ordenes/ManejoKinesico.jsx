@@ -32,8 +32,8 @@ export default function CommentManejoKinesico({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
-    const combinedContent =  `${selectedValues}\n${comment}`;
+    const selectedValues = selected.map(option => '- ' + option.value).join('\n'); // array a texto
+    const combinedContent =  `${selectedValues}\n- ${comment}`;
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -154,6 +154,7 @@ export default function CommentManejoKinesico({ postId }) {
           <Textarea
             placeholder='Escribir descripcion...'
             onChange={handleChange}
+            color='success'
           />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

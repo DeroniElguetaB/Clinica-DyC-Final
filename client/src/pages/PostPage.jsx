@@ -23,6 +23,7 @@ import CommentSolicitudImagenes from '../components/ordenes/SolicitudImagenes';
 import CommentSolicitudElectro from '../components/ordenes/SolicitudElectrocardiograma';
 import CommentSolProcEndoscopicos from '../components/ordenes/SolicitudProcEndoscopicos';
 import CommentManejoKinesico from '../components/ordenes/ManejoKinesico';
+import CommentRecetaMagistral from '../components/ordenes/RecetaMagistral';
 
 //VISTA PERFIL PACIENTE
 export default function PostPage() {
@@ -48,6 +49,8 @@ export default function PostPage() {
   const [estadoModalSolicitudElectro, setEstadoModalSolicitudElectro] = useState(false);
   const [estadoModalSolProcEndoscopicos, setEstadoModalSolProcEndoscopicos] = useState(false);
   const [estadoModalManejoKinesico, setEstadoModalManejoKinesico] = useState(false);
+  const [estadoModalRecetaMagistral, setEstadoModalRecetaMagistral] = useState(false);
+
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -222,6 +225,9 @@ export default function PostPage() {
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setEstadoModalManejoKinesico(true)}>
                     Manejo Kinesico
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setEstadoModalRecetaMagistral(true)}>
+                    Receta Magistral
                   </Dropdown.Item>
                 </Dropdown>
               </div>
@@ -687,6 +693,37 @@ export default function PostPage() {
                     <div className=''>
                         <div className='text-lg'>
                         <CommentManejoKinesico postId={post._id} />
+                        </div>
+                    </div>
+                  </div>
+                </ModalReceta>
+
+                {/* RECETA MAGISTRAL*/}
+                <ModalReceta
+                  state= {estadoModalRecetaMagistral}
+                  setState = {setEstadoModalRecetaMagistral}
+                  title="Receta Magistral"
+                > 
+                  <div>
+                    <div className='flex items-start text-lg pb-2'>
+                        <h1 className='font-semibold pr-1'>Nombre: </h1>
+                        <p>{post && post.contenido}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Rut:</h1>
+                        <p>{post && post.title}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Edad: </h1>
+                        <p>{calcularEdad(post?.edad)} años  </p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Sexo:</h1>
+                        <p>{post && post.category}</p>
+                    </div>
+                    <div className=''>
+                        <div className='text-lg'>
+                        <CommentRecetaMagistral postId={post._id} />
                         </div>
                     </div>
                   </div>

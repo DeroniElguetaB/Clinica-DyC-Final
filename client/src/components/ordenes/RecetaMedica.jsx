@@ -135,6 +135,7 @@ export default function CommentRecetaMedica({ postId }) {
           <Textarea
             placeholder='Escribir descripcion...'
             required
+            color='success'
             onChange={handleChange}
           />
           <div className='flex place-content-end items-center mt-5'>

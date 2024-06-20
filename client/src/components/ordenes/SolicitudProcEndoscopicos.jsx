@@ -34,7 +34,7 @@ export default function CommentSolProcEndoscopicos({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
+    const selectedValues = selected.map(option => '- ' + option.value).join('\n'); // array a texto
     console.log(selectedValues);//funciona
     try {
       const res = await fetch('/api/comment/create', {

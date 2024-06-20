@@ -139,25 +139,25 @@ export default function CommentCirugiaMayor({ postId }) {
                         <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones: </h1>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[0] = el}>RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[0] = el}>- RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[1] = el}>METRONIDAZOL 1,5 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[1] = el}>- METRONIDAZOL 1,5 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[2] = el}>AMPICILINA 2 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[2] = el}>- AMPICILINA 2 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[3] = el}>CONTUMAX UN SOBRE DISUELTO EN 250 CC DE AGUA, PRIMERO SIETE SOBRES A LAS 19 HORAS DEL DÍA PREVIO A LA CIRUGÍA, REPETIR PROCESO CON LOS SIETE SOBRES RESTANTES A LAS 21 HORAS. </p>
+                        <p ref={el => pRefs.current[3] = el}>- CONTUMAX UN SOBRE DISUELTO EN 250 CC DE AGUA, PRIMERO SIETE SOBRES A LAS 19 HORAS DEL DÍA PREVIO A LA CIRUGÍA, REPETIR PROCESO CON LOS SIETE SOBRES RESTANTES A LAS 21 HORAS. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[4] = el}>FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[4] = el}>- FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[5] = el}>CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA</p>
+                        <p ref={el => pRefs.current[5] = el}>- CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[6] = el}>METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[6] = el}>- METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

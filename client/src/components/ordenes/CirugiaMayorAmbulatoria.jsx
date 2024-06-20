@@ -139,19 +139,19 @@ export default function CommentCirugiaMayorAmbulatoria({ postId }) {
                         <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones:</h1>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[0] = el}>RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[0] = el}>- RÉGIMEN CERO 8 HORAS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[1] = el}>FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[1] = el}>- FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[2] = el}>VÍA VENOSA PERMEABLE.</p>
+                        <p ref={el => pRefs.current[2] = el}>- VÍA VENOSA PERMEABLE.</p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[3] = el}>CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA</p>
+                        <p ref={el => pRefs.current[3] = el}>- CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[4] = el}>METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
+                        <p ref={el => pRefs.current[4] = el}>- METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

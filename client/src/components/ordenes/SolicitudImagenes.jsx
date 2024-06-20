@@ -1,19 +1,20 @@
-import { Alert, Button, Modal, TextInput, Textarea } from 'flowbite-react';
+import { Alert, Button, Modal, TextInput, Label } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { MultiSelect } from "react-multi-select-component";
 
 export default function CommentSolicitudImagenes({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
-  const [comment, setComment] = useState('');
   const [commentError, setCommentError] = useState(null);
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const [selected, setSelected] = useState([]);
-  
+  const [ecografia, setEcografia] = useState(''); // Estado para el input adicional
+  const navigate = useNavigate();
+
   const options = [
     { label: "Resonancia de pelvis", value: "Resonancia de pelvis" },
     { label: "Resonancia de pelvis protocolo recto", value: "Resonancia de pelvis protocolo recto" },
@@ -24,7 +25,6 @@ export default function CommentSolicitudImagenes({ postId }) {
     { label: "Tac de torax y con contraste", value: "Tac de torax y con contraste"},
     { label: "Tac de orbita y maxilofacial sin contraste", value: "Tac de orbita y maxilofacial sin contraste"},
   ];
-  const navigate = useNavigate();
 
   const overrideStrings = {
     selectSomeItems: "Selecciona...",
@@ -37,8 +37,14 @@ export default function CommentSolicitudImagenes({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
-    console.log(selectedValues);//funciona
+    const selectedValues = selected.map(option => '- ' + option.value).join('\n');
+    let content = selectedValues;
+    
+    // Verifica si el input adicional tiene algún valor
+    if (ecografia.trim()) {
+      content += `\n- Ecografia de partes blandas: ${ecografia}`;
+    }
+    
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -46,7 +52,7 @@ export default function CommentSolicitudImagenes({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: selectedValues,
+          content: content,
           name: 'Solicitud de imagenes',
           postId,
           userId: currentUser._id,
@@ -54,7 +60,8 @@ export default function CommentSolicitudImagenes({ postId }) {
       });
       const data = await res.json();
       if (res.ok) {
-        setComment('');
+        setSelected([]); // Limpia la selección
+        setEcografia(''); // Limpia el input adicional
         setCommentError(null);
         setComments([data, ...comments]);
         window.location.reload(); 
@@ -79,42 +86,6 @@ export default function CommentSolicitudImagenes({ postId }) {
     getComments();
   }, [postId]);
 
-  const handleLike = async (commentId) => {
-    try {
-      if (!currentUser) {
-        navigate('/sign-in');
-        return;
-      }
-      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
-        method: 'PUT',
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setComments(
-          comments.map((comment) =>
-            comment._id === commentId
-              ? {
-                  ...comment,
-                  likes: data.likes,
-                  numberOfLikes: data.likes.length,
-                }
-              : comment
-          )
-        );
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleEdit = async (comment, editedContent) => {
-    setComments(
-      comments.map((c) =>
-        c._id === comment._id ? { ...c, content: editedContent } : c
-      )
-    );
-  };
-
   const handleDelete = async (commentId) => {
     setShowModal(false);
     try {
@@ -134,34 +105,38 @@ export default function CommentSolicitudImagenes({ postId }) {
     }
   };
 
-  const handleChange = (value) => {
-    setComment(value);
-  };
-
   return (
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
         <form onSubmit={handleSubmit}>
           <label className='font-semibold'>Seleccionar Examenes</label>
-          <div className='pt-3 pr-20 pb-5'>
-            <MultiSelect
-              className='text-sm'
-              options={options}
-              value={selected}
-              onChange={setSelected}
-              labelledBy="Select"
-              overrideStrings={overrideStrings}
-            />
-          </div>
-          <div className='flex'>
-            <div className='pr-2 pt-1'>
-                <label className=''>Ecografia de partes blandas: </label>
+          <div className='border-2 p-4 border-teal-500 mr-2 mt-2'>
+            <div className='pr-10 pb-5'>
+              <MultiSelect
+                className='text-sm'
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                labelledBy="Select"
+                overrideStrings={overrideStrings}
+              />
             </div>
-            <TextInput
-              type='text'
-              placeholder=''
-              onChange={handleChange}
-            />
+            <div className='flex'>
+              <div className='pr-2'>
+                <Label className='dark:text-black' htmlFor="ecografia" value="Ecografia de partes blandas" />
+              </div>
+              <TextInput
+                  placeholder='En caso de solicitud de ecografia...'
+                  type='text'
+                  className='w-3/6'
+                  id="ecografia" 
+                  name="ecografia"
+                  sizing="sm"
+                  color='success'
+                  value={ecografia} // Vincular con el estado
+                  onChange={(e) => setEcografia(e.target.value)} // Manejar cambios
+              />
+            </div>
           </div>
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

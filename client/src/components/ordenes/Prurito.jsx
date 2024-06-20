@@ -133,25 +133,25 @@ export default function CommentPrurito({ postId }) {
                         <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones: </h1>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[0] = el}>DIETA RICA EN FIBRA, 30 GR. </p>
+                        <p ref={el => pRefs.current[0] = el}>- DIETA RICA EN FIBRA, 30 GR. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[1] = el}>LIQUIDOS 2 – 2.5 LITROS. </p>
+                        <p ref={el => pRefs.current[1] = el}>- LIQUIDOS 2 – 2.5 LITROS. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[2] = el}>LAVAR CON AGUA Y JABON HIPOALERGENICO. </p>
+                        <p ref={el => pRefs.current[2] = el}>- LAVAR CON AGUA Y JABON HIPOALERGENICO. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[3] = el}>SECAR CON SACADOR DE PELO. </p>
+                        <p ref={el => pRefs.current[3] = el}>- SECAR CON SACADOR DE PELO. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[4] = el}>DEJAR APOSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
+                        <p ref={el => pRefs.current[4] = el}>- DEJAR APOSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[5] = el}>LAVAR ROPA INTERIOR CON DETERGENTE HIPOALERGENICO. </p>
+                        <p ref={el => pRefs.current[5] = el}>- LAVAR ROPA INTERIOR CON DETERGENTE HIPOALERGENICO. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[6] = el}>CICALFATE 1 VEZ POR LA NOCHE. </p>
+                        <p ref={el => pRefs.current[6] = el}>- CICALFATE 1 VEZ POR LA NOCHE. </p>
                     </div>
                 </div>
                 <div className='flex place-content-end items-center mt-5'>

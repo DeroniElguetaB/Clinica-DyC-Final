@@ -103,16 +103,16 @@ export default function CommentHabitoDefecatorio({ postId }) {
                     <h1 className='font-semibold pb-3' ref={h1Ref}>Indicaciones: </h1>
                   </div>
                   <div>
-                    <p ref={el => pRefs.current[0] = el}>DIETA RICA EN FIBRA, 30 GR DÍA </p>
+                    <p ref={el => pRefs.current[0] = el}>- DIETA RICA EN FIBRA, 30 GR DÍA </p>
                   </div>
                   <div>
-                    <p ref={el => pRefs.current[1] = el}>LIQUIDOS 2 – 2.5 LITROS DIA </p>
+                    <p ref={el => pRefs.current[1] = el}>- LIQUIDOS 2 – 2.5 LITROS DIA </p>
                   </div>
                   <div>
-                    <p ref={el => pRefs.current[2] = el}>SUPLEMENTO DE FIBRA BARRA O POLVO  </p>
+                    <p ref={el => pRefs.current[2] = el}>- SUPLEMENTO DE FIBRA BARRA O POLVO  </p>
                   </div>
                   <div>
-                    <p ref={el => pRefs.current[3] = el}>CONTUMAX 1 SOBRE DISUELTO EN 250 CC DE AGUA 1 VEZ EN LA MAÑANA </p>
+                    <p ref={el => pRefs.current[3] = el}>- CONTUMAX 1 SOBRE DISUELTO EN 250 CC DE AGUA 1 VEZ EN LA MAÑANA </p>
                   </div>
                 </div>
               <div className='flex place-content-end items-center mt-5'>

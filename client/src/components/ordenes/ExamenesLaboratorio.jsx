@@ -44,8 +44,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
-    console.log(selectedValues);//funciona
+    const selectedValues = selected.map(option => '- ' + option.value).join(`\n`); // array a texto
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
