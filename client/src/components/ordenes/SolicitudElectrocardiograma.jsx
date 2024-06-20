@@ -6,7 +6,7 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default function CommentCertificado({ postId }) {
+export default function CommentSolicitudElectro({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState('');
   const [commentError, setCommentError] = useState(null);
@@ -36,7 +36,7 @@ export default function CommentCertificado({ postId }) {
           content: strippedComment,
           postId,
           userId: currentUser._id,
-          name: 'Certificado',
+          name: 'Solicitud de Electrocardiograma',
         }),
       });
       const data = await res.json();
@@ -130,7 +130,7 @@ export default function CommentCertificado({ postId }) {
       {currentUser && (
         <form onSubmit={handleSubmit} className=''>
           <div>
-              <h1 className='font-semibold pb-3'>Detalle: </h1>
+              <h1 className='font-semibold pb-3'>Diagnostico: </h1>
           </div>
           <Textarea
             placeholder='Escribir descripcion...'
@@ -179,6 +179,3 @@ export default function CommentCertificado({ postId }) {
     </div>
   );
 }
-
-
-

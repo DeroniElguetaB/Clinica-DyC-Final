@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -121,8 +121,8 @@ export default function CommentRecetaMedica({ postId }) {
     }
   };
 
-  const handleChange = (value) => {
-    setComment(value);
+  const handleChange = (e) => {
+    setComment(e.target.value);
   };
 
   return (
@@ -132,12 +132,10 @@ export default function CommentRecetaMedica({ postId }) {
           <div>
               <h1 className='font-semibold pb-3'>Diagnostico: </h1>
           </div>
-          <ReactQuill
-            placeholder='Escribir diagnostico y medicacion...'
-            className='h-25'
+          <Textarea
+            placeholder='Escribir descripcion...'
             required
             onChange={handleChange}
-            value={comment}
           />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

@@ -15,21 +15,21 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const [selected, setSelected] = useState([]);
   
   const options = [
-    { label: "hemograma", value: "hemograma" },
-    { label: "creatinemia", value: "creatinemia" },
-    { label: "electrolitos plasmaticos", value: "electrolitos plasmaticos"},
-    { label: "pruebas de coagulacion", value: "pruebas de coagulacion"},
-    { label: "perfil bioquimico", value: "perfil bioquimico"},
-    { label: "perfil hepatico", value: "perfil hepatico"},
-    { label: "perfil lipidico", value: "perfil lipidico"},
-    { label: "anticuerpos anti endomisio", value: "anticuerpos anti endomisio"},
-    { label: "anticuerpos anti transglutaminasa", value: "anticuerpos anti transglutaminasa"},
-    { label: "procalcitonina", value: "procalcitonina"},
-    { label: "directo de deposiciones", value: "directo de deposiciones"},
-    { label: "coprocultivo", value: "coprocultivo"},
-    { label: "grupo y rh", value: "grupo y rh"},
-    { label: "parasitologico seriado", value: "parasitologico seriado"},
-    { label: "panel ets", value: "panel ets"},
+    { label: "Hemograma", value: "Hemograma" },
+    { label: "Creatinemia", value: "Creatinemia" },
+    { label: "Electrolitos plasmaticos", value: "Electrolitos plasmaticos"},
+    { label: "Pruebas de coagulacion", value: "Pruebas de coagulacion"},
+    { label: "Perfil bioquimico", value: "Perfil bioquimico"},
+    { label: "Perfil hepatico", value: "Perfil hepatico"},
+    { label: "Perfil lipidico", value: "Perfil lipidico"},
+    { label: "Anticuerpos anti endomisio", value: "Anticuerpos anti endomisio"},
+    { label: "Anticuerpos anti transglutaminasa", value: "Anticuerpos anti transglutaminasa"},
+    { label: "Procalcitonina", value: "Procalcitonina"},
+    { label: "Directo de deposiciones", value: "Directo de deposiciones"},
+    { label: "Coprocultivo", value: "Coprocultivo"},
+    { label: "Crupo y rh", value: "Grupo y rh"},
+    { label: "Parasitologico seriado", value: "Parasitologico seriado"},
+    { label: "Panel ets", value: "Panel ets"},
   ];
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const selectedValues = selected.map(option => option.value).join(', '); // array a texto
+    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
     console.log(selectedValues);//funciona
     try {
       const res = await fetch('/api/comment/create', {
@@ -54,6 +54,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
         },
         body: JSON.stringify({
           content: selectedValues,
+          name: 'Examenes Laboratorio',
           postId,
           userId: currentUser._id,
         }),

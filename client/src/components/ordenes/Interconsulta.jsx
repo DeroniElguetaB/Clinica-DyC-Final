@@ -1,9 +1,8 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 export default function CommentInterconsulta({ postId }) {
@@ -85,20 +84,21 @@ export default function CommentInterconsulta({ postId }) {
     }
   };
 
-  const handleChange = (value) => {
-    setComment(value);
+  const handleChange = (e) => {
+    setComment(e.target.value);
   };
 
   return (
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
         <form onSubmit={handleSubmit} className=''>
-          <ReactQuill
-            placeholder='Texto de escritura...'
-            className='h-25'
+          <div>
+              <h1 className='font-semibold pb-3'>Detalle: </h1>
+          </div>
+          <Textarea
+            placeholder='Escribir descripcion...'
             required
             onChange={handleChange}
-            value={comment}
           />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

@@ -1,31 +1,39 @@
 import { Alert, Button, Modal, Textarea } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { MultiSelect } from "react-multi-select-component";
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
-export default function CommentCertificado({ postId }) {
+export default function CommentManejoKinesico({ postId }) {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState('');
   const [commentError, setCommentError] = useState(null);
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
-  const navigate = useNavigate();
+  const [selected, setSelected] = useState([]);
   
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
+  const options = [
+    { label: "Biofeedback", value: "Biofeedback" },
+    { label: "Drenaje linfatico facial", value: "Drenaje linfatico facial" },
+  ];
+  const navigate = useNavigate();
+
+  const overrideStrings = {
+    selectSomeItems: "Selecciona...",
+    allItemsAreSelected: "Todos los examenes están seleccionados.",
+    selectAll: "Seleccionar todo",
+    search: "Buscar",
+    selectAllFiltered: 'Seleccionar todo'
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 1000) {
-      return;
-    }
-    const strippedComment = stripHtml(comment);
+    
+    const selectedValues = selected.map(option => option.value).join('\n'); // array a texto
+    const combinedContent =  `${selectedValues}\n${comment}`;
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -33,10 +41,10 @@ export default function CommentCertificado({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: combinedContent,
+          name: 'Manejo Kinesico',
           postId,
           userId: currentUser._id,
-          name: 'Certificado',
         }),
       });
       const data = await res.json();
@@ -44,7 +52,7 @@ export default function CommentCertificado({ postId }) {
         setComment('');
         setCommentError(null);
         setComments([data, ...comments]);
-        window.location.reload(); // Reload the page
+        window.location.reload(); 
       }
     } catch (error) {
       setCommentError(error.message);
@@ -128,13 +136,23 @@ export default function CommentCertificado({ postId }) {
   return (
     <div className='max-w-2xl mx-auto w-full'>
       {currentUser && (
-        <form onSubmit={handleSubmit} className=''>
+        <form onSubmit={handleSubmit}>
+          <label className='font-semibold'>Seleccionar Examenes</label>
+          <div className='pt-3 pb-2'>
+            <MultiSelect
+              className='text-sm'
+              options={options}
+              value={selected}
+              onChange={setSelected}
+              labelledBy="Select"
+              overrideStrings={overrideStrings}
+            />
+          </div>
           <div>
-              <h1 className='font-semibold pb-3'>Detalle: </h1>
+              <h1 className='font-semibold'>Detalle: </h1>
           </div>
           <Textarea
             placeholder='Escribir descripcion...'
-            required
             onChange={handleChange}
           />
           <div className='flex place-content-end items-center mt-5'>
@@ -179,6 +197,3 @@ export default function CommentCertificado({ postId }) {
     </div>
   );
 }
-
-
-

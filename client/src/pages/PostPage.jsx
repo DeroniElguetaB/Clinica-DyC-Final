@@ -19,6 +19,10 @@ import CommentRecetaMedica from '../components/ordenes/RecetaMedica';
 import CommentInterconsulta from '../components/ordenes/Interconsulta';
 import CommentFonoaudiologia from '../components/ordenes/Fonoaudiologia';
 import CommentExamenesLaboratorio from '../components/ordenes/ExamenesLaboratorio';
+import CommentSolicitudImagenes from '../components/ordenes/SolicitudImagenes';
+import CommentSolicitudElectro from '../components/ordenes/SolicitudElectrocardiograma';
+import CommentSolProcEndoscopicos from '../components/ordenes/SolicitudProcEndoscopicos';
+import CommentManejoKinesico from '../components/ordenes/ManejoKinesico';
 
 //VISTA PERFIL PACIENTE
 export default function PostPage() {
@@ -40,6 +44,10 @@ export default function PostPage() {
   const [estadoModalPostExodoncia, setEstadoModalPostExodoncia] = useState(false);
   const [estadoModalPrurito, setEstadoModalPrurito] = useState(false);
   const [estadoModalCirugiaMayorAmbulatoria, setEstadoModalCirugiaMayorAmbulatoria] = useState(false);
+  const [estadoModalSolicitudImagenes, setEstadoModalSolicitudImagenes] = useState(false);
+  const [estadoModalSolicitudElectro, setEstadoModalSolicitudElectro] = useState(false);
+  const [estadoModalSolProcEndoscopicos, setEstadoModalSolProcEndoscopicos] = useState(false);
+  const [estadoModalManejoKinesico, setEstadoModalManejoKinesico] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -201,7 +209,19 @@ export default function PostPage() {
                     Post Exodoncia
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => setEstadoModalPrurito(true)}>
-                    Prurito
+                    Prurito 
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setEstadoModalSolicitudImagenes(true)}>
+                    Solicitud Imag.
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setEstadoModalSolicitudElectro(true)}>
+                    Solicitud Electro.
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setEstadoModalSolProcEndoscopicos(true)}>
+                    Solicitud Proc. Endoscopicos
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => setEstadoModalManejoKinesico(true)}>
+                    Manejo Kinesico
                   </Dropdown.Item>
                 </Dropdown>
               </div>
@@ -543,6 +563,130 @@ export default function PostPage() {
                     <div className=''>
                         <div className='text-lg'>
                             <CommentExamenesLaboratorio postId={post._id} />
+                        </div>
+                    </div>
+                  </div>
+                </ModalReceta>
+
+                {/* SOLICITUD DE IMAGENES*/}
+                <ModalReceta
+                  state= {estadoModalSolicitudImagenes}
+                  setState = {setEstadoModalSolicitudImagenes}
+                  title="Solicitud de Imagenes"
+                > 
+                  <div>
+                    <div className='flex items-start text-lg pb-2'>
+                        <h1 className='font-semibold pr-1'>Nombre: </h1>
+                        <p>{post && post.contenido}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Rut:</h1>
+                        <p>{post && post.title}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Edad: </h1>
+                        <p>{calcularEdad(post?.edad)} años  </p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Sexo:</h1>
+                        <p>{post && post.category}</p>
+                    </div>
+                    <div className=''>
+                        <div className='text-lg'>
+                        <CommentSolicitudImagenes postId={post._id} />
+                        </div>
+                    </div>
+                  </div>
+                </ModalReceta>
+
+                {/* SOLICITUD ELECTROCARDIOGRAMA*/}
+                <ModalReceta
+                  state= {estadoModalSolicitudElectro}
+                  setState = {setEstadoModalSolicitudElectro}
+                  title="Solicitud de Electrocardiograma"
+                > 
+                  <div>
+                    <div className='flex items-start text-lg pb-2'>
+                        <h1 className='font-semibold pr-1'>Nombre: </h1>
+                        <p>{post && post.contenido}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Rut:</h1>
+                        <p>{post && post.title}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Edad: </h1>
+                        <p>{calcularEdad(post?.edad)} años  </p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Sexo:</h1>
+                        <p>{post && post.category}</p>
+                    </div>
+                    <div className=''>
+                        <div className='text-lg'>
+                        <CommentSolicitudElectro postId={post._id} />
+                        </div>
+                    </div>
+                  </div>
+                </ModalReceta>
+
+                {/* SOLICITUD PROCEDCIMIENTOS ENDOSCOPICOS*/}
+                <ModalReceta
+                  state= {estadoModalSolProcEndoscopicos}
+                  setState = {setEstadoModalSolProcEndoscopicos}
+                  title="Solicitud de Electrocardiograma"
+                > 
+                  <div>
+                    <div className='flex items-start text-lg pb-2'>
+                        <h1 className='font-semibold pr-1'>Nombre: </h1>
+                        <p>{post && post.contenido}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Rut:</h1>
+                        <p>{post && post.title}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Edad: </h1>
+                        <p>{calcularEdad(post?.edad)} años  </p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Sexo:</h1>
+                        <p>{post && post.category}</p>
+                    </div>
+                    <div className=''>
+                        <div className='text-lg'>
+                        <CommentSolProcEndoscopicos postId={post._id} />
+                        </div>
+                    </div>
+                  </div>
+                </ModalReceta>
+
+                {/* MANEJO KINESICO*/}
+                <ModalReceta
+                  state= {estadoModalManejoKinesico}
+                  setState = {setEstadoModalManejoKinesico}
+                  title="Manejo Kinesico"
+                > 
+                  <div>
+                    <div className='flex items-start text-lg pb-2'>
+                        <h1 className='font-semibold pr-1'>Nombre: </h1>
+                        <p>{post && post.contenido}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Rut:</h1>
+                        <p>{post && post.title}</p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Edad: </h1>
+                        <p>{calcularEdad(post?.edad)} años  </p>
+                    </div>
+                    <div className='flex items-start text-lg font pb-2'>
+                        <h1 className='font-semibold pr-1'>Sexo:</h1>
+                        <p>{post && post.category}</p>
+                    </div>
+                    <div className=''>
+                        <div className='text-lg'>
+                        <CommentManejoKinesico postId={post._id} />
                         </div>
                     </div>
                   </div>

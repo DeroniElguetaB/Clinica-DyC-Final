@@ -50,11 +50,11 @@ display: none;
     left: -17px !important;
 }
 .droppost li button{
-text-align: left !important;
+    text-align: left !important;
 }
 
 .droppost li button:hover{
-    background-color: rgb(59, 134, 134, 0.3) !important; 
+    background-color: rgba(59, 134, 134, 0.302) !important; 
     border-radius: 10px;
 }
 

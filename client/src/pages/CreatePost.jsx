@@ -36,22 +36,6 @@ export default function CreatePost() {
   const [date, setDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // const years = range(1930, getYear(new Date()) + 1, 1);
-  // const months = [
-  //   "Enero",
-  //   "Febrero",
-  //   "Marzo",
-  //   "Abril",
-  //   "Mayo",
-  //   "Junio",
-  //   "Julio",
-  //   "Agosto",
-  //   "Septiembre",
-  //   "Octubre",
-  //   "Noviembre",
-  //   "Deciembre",
-  // ];
-
   const navigate = useNavigate();
 
   const handleUploadImage = async () => {
@@ -93,7 +77,6 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
     try {
       const res = await fetch('/api/post/create', {
