@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,23 +13,24 @@ export default function CommentExamenesLaboratorio({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const [selected, setSelected] = useState([]);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   
   const options = [
     { label: "Hemograma", value: "Hemograma" },
     { label: "Creatinemia", value: "Creatinemia" },
-    { label: "Electrolitos plasmaticos", value: "Electrolitos plasmaticos"},
-    { label: "Pruebas de coagulacion", value: "Pruebas de coagulacion"},
-    { label: "Perfil bioquimico", value: "Perfil bioquimico"},
-    { label: "Perfil hepatico", value: "Perfil hepatico"},
-    { label: "Perfil lipidico", value: "Perfil lipidico"},
+    { label: "Electrolitos plasmáticos", value: "Electrolitos plasmáticos"},
+    { label: "Pruebas de coagulación", value: "Pruebas de coagulación"},
+    { label: "Perfil bioquímico", value: "Perfil bioquímico"},
+    { label: "Perfil hepático", value: "Perfil hepático"},
+    { label: "Perfil lipídico", value: "Perfil lipídico"},
     { label: "Anticuerpos anti endomisio", value: "Anticuerpos anti endomisio"},
     { label: "Anticuerpos anti transglutaminasa", value: "Anticuerpos anti transglutaminasa"},
     { label: "Procalcitonina", value: "Procalcitonina"},
     { label: "Directo de deposiciones", value: "Directo de deposiciones"},
     { label: "Coprocultivo", value: "Coprocultivo"},
-    { label: "Crupo y rh", value: "Grupo y rh"},
-    { label: "Parasitologico seriado", value: "Parasitologico seriado"},
-    { label: "Panel ets", value: "Panel ets"},
+    { label: "Crupo y RH", value: "Grupo y RH"},
+    { label: "Parasitológico seriado", value: "Parasitológico seriado"},
+    { label: "Panel ETS", value: "Panel ETS"},
   ];
   const navigate = useNavigate();
 
@@ -45,6 +46,11 @@ export default function CommentExamenesLaboratorio({ postId }) {
     e.preventDefault();
     
     const selectedValues = selected.map(option => '- ' + option.value).join(`\n`); // array a texto
+    let content = selectedValues;
+
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -52,7 +58,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: selectedValues,
+          content: content,
           name: 'Examenes Laboratorio',
           postId,
           userId: currentUser._id,
@@ -149,7 +155,7 @@ export default function CommentExamenesLaboratorio({ postId }) {
       {currentUser && (
         <form onSubmit={handleSubmit}>
           <label className='font-semibold'>Seleccionar Examenes</label>
-          <div className='pt-3 pr-20 pb-5'>
+          <div className='pt-3 pb-5'>
             <MultiSelect
               className='text-sm'
               options={options}
@@ -159,6 +165,19 @@ export default function CommentExamenesLaboratorio({ postId }) {
               overrideStrings={overrideStrings}
             />
           </div>
+          <div className=''>
+            <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+          </div>
+          <Textarea
+            placeholder='Escribir observaciones...'
+            type='text'
+            className=''
+            id="observaciones" 
+            name="observaciones"
+            color='success'
+            value={observaciones} // Vincular con el estado
+            onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+          />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>
               Guardar

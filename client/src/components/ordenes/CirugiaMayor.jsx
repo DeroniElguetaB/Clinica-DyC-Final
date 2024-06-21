@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,24 +13,22 @@ export default function CommentCirugiaMayor({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   const navigate = useNavigate();
   const h1Ref = useRef();
   const pRefs = useRef([]);
   
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 1000) {
-      return;
-    }
-    const strippedComment = stripHtml(comment);
+    
     const h1Content = h1Ref.current.innerText;
     const pContents = pRefs.current.map(p => p.innerText).join('\n');
     const combinedContent = `${h1Content}\n${pContents}`;
+    let content = combinedContent;
+
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -38,7 +36,7 @@ export default function CommentCirugiaMayor({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: combinedContent,
+          content: content,
           postId,
           userId: currentUser._id,
           name: 'Indicaciones Cirugia Mayor',
@@ -145,7 +143,7 @@ export default function CommentCirugiaMayor({ postId }) {
                         <p ref={el => pRefs.current[1] = el}>- METRONIDAZOL 1,5 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[2] = el}>- AMPICILINA 2 G A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[2] = el}>- AMPICILINA 2 GR A LAS 23 HORAS DEL DÍA ANTERIOR A LA CIRUGÍA. </p>
                     </div>
                     <div>
                         <p ref={el => pRefs.current[3] = el}>- CONTUMAX UN SOBRE DISUELTO EN 250 CC DE AGUA, PRIMERO SIETE SOBRES A LAS 19 HORAS DEL DÍA PREVIO A LA CIRUGÍA, REPETIR PROCESO CON LOS SIETE SOBRES RESTANTES A LAS 21 HORAS. </p>
@@ -154,12 +152,25 @@ export default function CommentCirugiaMayor({ postId }) {
                         <p ref={el => pRefs.current[4] = el}>- FLEET ENEMA RECTAL DOS HORAS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[5] = el}>- CEFAZOLINA 1 Gr 30 MINUTOS ANTES DE LA CIRUGÍA. </p>
+                        <p ref={el => pRefs.current[5] = el}>- CEFAZOLINA 1 GR 30 MINUTOS ANTES DE LA CIRUGÍA. </p>
                     </div>
                     <div>
                         <p ref={el => pRefs.current[6] = el}>- METRONIDAZOL DE 500 MG 30 MINUTOS ANTES DE LA CIRUGÍA.  </p>
                     </div>
                 </div>
+                <div className='pt-3'>
+                  <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+                </div>
+                <Textarea
+                  placeholder='Escribir observaciones...'
+                  type='text'
+                  className=''
+                  id="observaciones" 
+                  name="observaciones"
+                  color='success'
+                  value={observaciones} // Vincular con el estado
+                  onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+                />
                 <div className='flex place-content-end items-center mt-5'>
                     <Button type='submit'>
                     Guardar

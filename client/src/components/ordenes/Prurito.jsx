@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import { useEffect, useState,  useRef  } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,26 +13,23 @@ export default function CommentPrurito({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   const navigate = useNavigate();
   
   const h1Ref = useRef();
   const pRefs = useRef([]);
 
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 1000) {
-      return;
-    }
-    const strippedComment = stripHtml(comment);
+
     const h1Content = h1Ref.current.innerText;
     const pContents = pRefs.current.map(p => p.innerText).join('\n');
     const combinedContent = `${h1Content}\n${pContents}`;
+    let content = combinedContent;
 
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -40,7 +37,7 @@ export default function CommentPrurito({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: combinedContent,
+          content: content,
           postId,
           userId: currentUser._id,
           name: 'Indicaciones Prurito',
@@ -136,16 +133,16 @@ export default function CommentPrurito({ postId }) {
                         <p ref={el => pRefs.current[0] = el}>- DIETA RICA EN FIBRA, 30 GR. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[1] = el}>- LIQUIDOS 2 – 2.5 LITROS. </p>
+                        <p ref={el => pRefs.current[1] = el}>- LÍQUIDOS 2 – 2.5 LITROS. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[2] = el}>- LAVAR CON AGUA Y JABON HIPOALERGENICO. </p>
+                        <p ref={el => pRefs.current[2] = el}>- LAVAR CON AGUA Y JABÓN HIPOALERGÉNICO. </p>
                     </div>
                     <div>
                         <p ref={el => pRefs.current[3] = el}>- SECAR CON SACADOR DE PELO. </p>
                     </div>
                     <div>
-                        <p ref={el => pRefs.current[4] = el}>- DEJAR APOSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
+                        <p ref={el => pRefs.current[4] = el}>- DEJAR APÓSITO DE ALGODÓN EN CONTACTO CON EL ANO. </p>
                     </div>
                     <div>
                         <p ref={el => pRefs.current[5] = el}>- LAVAR ROPA INTERIOR CON DETERGENTE HIPOALERGENICO. </p>
@@ -154,6 +151,19 @@ export default function CommentPrurito({ postId }) {
                         <p ref={el => pRefs.current[6] = el}>- CICALFATE 1 VEZ POR LA NOCHE. </p>
                     </div>
                 </div>
+                <div className='pt-3'>
+                  <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+                </div>
+                <Textarea
+                  placeholder='Escribir observaciones...'
+                  type='text'
+                  className=''
+                  id="observaciones" 
+                  name="observaciones"
+                  color='success'
+                  value={observaciones} // Vincular con el estado
+                  onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+                />
                 <div className='flex place-content-end items-center mt-5'>
                     <Button type='submit'>
                     Guardar

@@ -1,5 +1,5 @@
 import { Alert, Button, Modal, Textarea } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
@@ -13,19 +13,19 @@ export default function CommentSolicitudElectro({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   const navigate = useNavigate();
+  const h1Ref = useRef();
   
-  const stripHtml = (html) => {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    return doc.body.textContent || "";
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 1000) {
-      return;
+
+    const h1Content = h1Ref.current.innerText;
+    let content = `${h1Content}`;
+
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
     }
-    const strippedComment = stripHtml(comment);
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -33,7 +33,7 @@ export default function CommentSolicitudElectro({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: strippedComment,
+          content: content,
           postId,
           userId: currentUser._id,
           name: 'Solicitud de Electrocardiograma',
@@ -130,13 +130,23 @@ export default function CommentSolicitudElectro({ postId }) {
       {currentUser && (
         <form onSubmit={handleSubmit} className=''>
           <div>
-              <h1 className='font-semibold pb-3'>Diagnostico: </h1>
+              <h1 className='font-semibold pb-3'>Detalle: </h1>
+          </div>
+          <div>
+            <h1 ref={h1Ref}>ELECTROCARDIOGRAMA</h1>
+          </div>
+          <div className='pt-3'>
+            <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
           </div>
           <Textarea
-            placeholder='Escribir descripcion...'
-            required
+            placeholder='Escribir observaciones...'
+            type='text'
+            className=''
+            id="observaciones" 
+            name="observaciones"
             color='success'
-            onChange={handleChange}
+            value={observaciones} // Vincular con el estado
+            onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
           />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

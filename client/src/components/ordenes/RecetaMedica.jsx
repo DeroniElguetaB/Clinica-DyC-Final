@@ -130,7 +130,7 @@ export default function CommentRecetaMedica({ postId }) {
       {currentUser && (
         <form onSubmit={handleSubmit} className=''>
           <div>
-              <h1 className='font-semibold pb-3'>Diagnostico: </h1>
+              <h1 className='font-semibold pb-3'>Diagnóstico: </h1>
           </div>
           <Textarea
             placeholder='Escribir descripcion...'

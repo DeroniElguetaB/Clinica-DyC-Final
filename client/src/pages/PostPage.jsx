@@ -640,7 +640,7 @@ export default function PostPage() {
                 <ModalReceta
                   state= {estadoModalSolProcEndoscopicos}
                   setState = {setEstadoModalSolProcEndoscopicos}
-                  title="Solicitud de Electrocardiograma"
+                  title="Solicitud de Procedimientos Endoscópicos"
                 > 
                   <div>
                     <div className='flex items-start text-lg pb-2'>

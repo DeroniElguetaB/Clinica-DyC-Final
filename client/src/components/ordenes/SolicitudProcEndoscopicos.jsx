@@ -1,4 +1,4 @@
-import { Alert, Button, Modal } from 'flowbite-react';
+import { Alert, Button, Modal, Textarea } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ export default function CommentSolProcEndoscopicos({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const [selected, setSelected] = useState([]);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   
   const options = [
     { label: "Endoscopia digestiva alta", value: "Endoscopia digestiva alta" },
@@ -35,7 +36,11 @@ export default function CommentSolProcEndoscopicos({ postId }) {
     e.preventDefault();
     
     const selectedValues = selected.map(option => '- ' + option.value).join('\n'); // array a texto
-    console.log(selectedValues);//funciona
+    let content = selectedValues;
+
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -43,7 +48,7 @@ export default function CommentSolProcEndoscopicos({ postId }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: selectedValues,
+          content: content,
           name: 'Solicitud de procedimientos endoscopicos',
           postId,
           userId: currentUser._id,
@@ -140,7 +145,7 @@ export default function CommentSolProcEndoscopicos({ postId }) {
       {currentUser && (
         <form onSubmit={handleSubmit}>
           <label className='font-semibold'>Seleccionar Examenes</label>
-          <div className='pt-3 pr-20 pb-5'>
+          <div className='pt-3 pb-5'>
             <MultiSelect
               className='text-sm'
               options={options}
@@ -150,6 +155,19 @@ export default function CommentSolProcEndoscopicos({ postId }) {
               overrideStrings={overrideStrings}
             />
           </div>
+          <div className=''>
+            <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+          </div>
+          <Textarea
+            placeholder='Escribir observaciones...'
+            type='text'
+            className=''
+            id="observaciones" 
+            name="observaciones"
+            color='success'
+            value={observaciones} // Vincular con el estado
+            onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+          />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>
               Guardar

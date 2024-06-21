@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput, Label } from 'flowbite-react';
+import { Alert, Button, Modal, TextInput, Label, Textarea} from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ export default function CommentSolicitudImagenes({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   const [selected, setSelected] = useState([]);
   const [ecografia, setEcografia] = useState(''); // Estado para el input adicional
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function CommentSolicitudImagenes({ postId }) {
   const options = [
     { label: "Resonancia de pelvis", value: "Resonancia de pelvis" },
     { label: "Resonancia de pelvis protocolo recto", value: "Resonancia de pelvis protocolo recto" },
-    { label: "Electrolitos plasmaticos", value: "Electrolitos plasmaticos"},
+    { label: "Electrolitos plasmáticos", value: "Electrolitos plasmáticos"},
     { label: "Rm de abdomen con gabadolinio", value: "Rm de abdomen con gabadolinio"},
     { label: "Defecorresonancia", value: "Defecorresonancia"},
     { label: "Tac abdomen y pelvis con contraste", value: "Tac abdomen y pelvis con contraste"},
@@ -44,7 +45,9 @@ export default function CommentSolicitudImagenes({ postId }) {
     if (ecografia.trim()) {
       content += `\n- Ecografia de partes blandas: ${ecografia}`;
     }
-    
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -111,7 +114,7 @@ export default function CommentSolicitudImagenes({ postId }) {
         <form onSubmit={handleSubmit}>
           <label className='font-semibold'>Seleccionar Examenes</label>
           <div className='border-2 p-4 border-teal-500 mr-2 mt-2'>
-            <div className='pr-10 pb-5'>
+            <div className='pb-5'>
               <MultiSelect
                 className='text-sm'
                 options={options}
@@ -123,7 +126,7 @@ export default function CommentSolicitudImagenes({ postId }) {
             </div>
             <div className='flex'>
               <div className='pr-2'>
-                <Label className='dark:text-black' htmlFor="ecografia" value="Ecografia de partes blandas" />
+                <Label className='dark:text-black' htmlFor="ecografia" value="Ecografía de partes blandas" />
               </div>
               <TextInput
                   placeholder='En caso de solicitud de ecografia...'
@@ -137,6 +140,19 @@ export default function CommentSolicitudImagenes({ postId }) {
                   onChange={(e) => setEcografia(e.target.value)} // Manejar cambios
               />
             </div>
+            <div className='pt-3'>
+                  <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+                </div>
+                <Textarea
+                  placeholder='Escribir observaciones...'
+                  type='text'
+                  className=''
+                  id="observaciones" 
+                  name="observaciones"
+                  color='success'
+                  value={observaciones} // Vincular con el estado
+                  onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+                />
           </div>
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>

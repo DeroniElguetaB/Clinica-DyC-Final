@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput, Label } from 'flowbite-react';
+import { Alert, Button, Modal, TextInput, Label, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ export default function CommentRecetaMagistral({ postId }) {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
+  const [observaciones, setObservaciones] = useState(''); // Estado para el input adicional
   const navigate = useNavigate();
 
   // Estados para cada input
@@ -32,15 +33,19 @@ export default function CommentRecetaMagistral({ postId }) {
 
   // Crear contenido para el post
   const createContent = () => {
-    return `NIFEDIPINO ${inputs.nifedipino} % + LIDOCAINA AL ${inputs.lidocaina}% 
+    return `NIFEDIPINO ${inputs.nifedipino} % + LIDOCAÍNA AL ${inputs.lidocaina}% 
       EN BASE CREMA, ${inputs.baseCrema} gr.
-      APLICAR 2 VECES AL DIA POR ${inputs.aplicar} SEMANAS.
-    `;
+      APLICAR 2 VECES AL DIA POR ${inputs.aplicar} SEMANAS.`;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const content = createContent();
+    const contentInputs = createContent();
+    let content = contentInputs;
+
+    if (observaciones.trim()) {
+      content += `\n\nObservaciones: \n- ${observaciones}`;
+    }
     try {
       const res = await fetch('/api/comment/create', {
         method: 'POST',
@@ -129,7 +134,7 @@ export default function CommentRecetaMagistral({ postId }) {
                     onChange={handleChange}
                 />
                 <div className='pl-2 pr-2 pt-1'>
-                    <Label className='dark:text-black' htmlFor="lidocaina" value="% + LIDOCAINA AL" />
+                    <Label className='dark:text-black' htmlFor="lidocaina" value="% + LIDOCAÍNA AL" />
                 </div>
                 <TextInput
                     type='text'
@@ -167,7 +172,7 @@ export default function CommentRecetaMagistral({ postId }) {
             </div>
             <div className='flex pt-4'>
                 <div className='pr-2 pt-1'>
-                    <Label className='dark:text-black' htmlFor="aplicar" value="APLICAR 2 VECES AL DIA POR" />
+                    <Label className='dark:text-black' htmlFor="aplicar" value="APLICAR 2 VECES AL DÍA POR" />
                 </div>
                 <TextInput
                     type='text'
@@ -185,6 +190,19 @@ export default function CommentRecetaMagistral({ postId }) {
                 </div>
             </div>
           </div>
+          <div className='pt-3'>
+            <h1 className='font-semibold pb-3'>Observaciones: (opcional)</h1>
+          </div>
+          <Textarea
+            placeholder='Escribir observaciones...'
+            type='text'
+            className=''
+            id="observaciones" 
+            name="observaciones"
+            color='success'
+            value={observaciones} // Vincular con el estado
+            onChange={(e) => setObservaciones(e.target.value)} // Manejar cambios
+          />
           <div className='flex place-content-end items-center mt-5'>
             <Button type='submit'>
               Guardar

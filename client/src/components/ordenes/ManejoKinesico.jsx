@@ -17,7 +17,7 @@ export default function CommentManejoKinesico({ postId }) {
   
   const options = [
     { label: "Biofeedback", value: "Biofeedback" },
-    { label: "Drenaje linfatico facial", value: "Drenaje linfatico facial" },
+    { label: "Drenaje linfático facial", value: "Drenaje linfático facial" },
   ];
   const navigate = useNavigate();
 
