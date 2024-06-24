@@ -89,7 +89,7 @@ export default function Header() {
             arrowIcon={false}
             inline
             label={
-              <Avatar alt='user' className='hover:bg-opacity-10 hover:text-teal-500' img={currentUser.profilePicture} rounded>Dr. {currentUser.username}</Avatar>
+              <Avatar alt='user' className='hover:bg-opacity-10 hover:text-teal-500' img={currentUser.profilePicture} rounded>{currentUser.username}</Avatar>
             }
           >
           <Link 

@@ -36,7 +36,7 @@ export default function CommentSolicitudElectro({ postId }) {
           content: content,
           postId,
           userId: currentUser._id,
-          name: 'Solicitud de Electrocardiograma',
+          name: 'Solicitud de Electro.',
         }),
       });
       const data = await res.json();
