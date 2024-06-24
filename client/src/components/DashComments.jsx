@@ -98,7 +98,7 @@ export default function DashComments() {
   };
 
   return (
-    <div className='p-4 md:mx-auto'
+    <div className='p-4 md:mx-auto recetascroll'
     >
       <div className='flex justify-between'>
         <motion.h1

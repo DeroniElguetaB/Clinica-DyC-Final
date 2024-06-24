@@ -134,11 +134,11 @@ export default function CommentSection({ postId }) {
 };
   return (
     
-    <div className='max-w-2xl mx-auto w-full p-3'>
+    <div className='max-w-2xl mx-auto w-full overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
           <>
           {comments.map((comment) => (
             <div class="detallescoment flex my-2 bg-gray-500 bg-opacity-10 rounded-lg p-4">
-              <div class="flex flex-auto pr-5">
+              <div class="flex flex-auto pr-5 detallecomment">
                 <h1>{new Date(comment.updatedAt).toLocaleDateString()}</h1>
               </div>
               <div class="flex flex-auto">
