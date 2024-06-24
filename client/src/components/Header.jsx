@@ -58,7 +58,7 @@ export default function Header() {
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
       >
-        <img className='logocaptura2' src={logocaptura} alt="" width="90" />
+        <img className='logocaptura2' src={logocaptura} alt="" width="63" />
      
         {/* <span className='p-1'>
           <span className='px-2 py-1 bg-gradient-to-r from-teal-400 via-teal-550 to-teal-800 rounded-lg text-white'>
