@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { fadeIn } from '../variants';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
+import logocaptura from "../assets/LOGOCAPTURA.png"
 import {
   signInStart,
   signInSuccess,
@@ -54,17 +55,20 @@ export default function SignIn() {
                whileInView={'show'}
                viewport={{ once: false, amount: 0.7 }}
         
-        className='flex-1 pr-10'>
+        className='flex-1 pr-25'>
+          <img className=' logocaptura' src={logocaptura} alt="" width="120"  />
           <Link
             to='/'
-            className='self-center whitespace-nowrap text-sm sm:text-3xl font-semibold dark:text-white'
+            className='flex self-center whitespace-nowrap text-sm sm:text-3xl font-semibold dark:text-white'
           >
-            <span className='px-2 py-1 bg-gradient-to-r from-teal-400 via-teal-550 to-teal-800 rounded-lg text-white'>
-              DyC
+          <div className=' flex flex-col p-6 letrassign'> 
+            <span className='p-1 text-white pl-5'>
+              Coloproctología y
             </span>
             <span className='p-1 text-white'>
-              Coloproctología
+              Cirugia Maxilofacial
             </span>
+</div> 
           </Link>
           {/* <p className='text-sm mt-5'>
             This is a demo project. You can sign in with your email and password

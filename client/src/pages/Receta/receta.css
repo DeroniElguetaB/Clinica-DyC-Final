@@ -36,6 +36,8 @@ display: none;
     background-image: url("../../assets/bg-medical-image.jpg") !important;
     height: 85vh; 
 }
+/* tipos-cirujanos-large.jpg
+bg-medical-image.jpg */
 
 .dashboard{
     min-height: 85vh;
@@ -52,6 +54,18 @@ display: none;
 .droppost li button{
     text-align: left !important;
 }
+.logocaptura{
+    margin-left: 7.5rem;
+    filter: drop-shadow(0 0 3px black);
+}
+
+.logocaptura2{
+    filter: drop-shadow(0 0 1.1px black);
+}
+.letrassign{
+    filter: drop-shadow(0 0 1.5px black);
+}
+
 
 .droppost li button:hover{
     background-color: rgba(59, 134, 134, 0.302) !important; 
@@ -101,3 +115,16 @@ width: 72% !important;
 width: 55vh !important;
     }
 }
+
+/*sigin*/
+@media (min-width: 300px) and (max-width: 650px) {
+    .logocaptura{
+        margin-left: 6.5rem;
+    }
+    .letrassign{
+        font-size: 26px !important;
+
+    
+    }
+}
+

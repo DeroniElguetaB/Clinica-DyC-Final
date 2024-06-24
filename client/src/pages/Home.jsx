@@ -25,7 +25,7 @@ export default function Home() {
         initial="hidden" 
         whileInView={"show"} 
         viewport={{once: false, amount: 0.7}} 
-        className='text-white text-3xl font-bold lg:text-6xl'>Somos DyC Coloproctologia</motion.h1>
+        className='text-white text-3xl font-bold lg:text-6xl letrassign '>Coloproctologia y Cirugia Maxilofacial</motion.h1>
         <motion.p 
         variants={fadeIn("up", 0.9)} 
         initial="hidden" 
