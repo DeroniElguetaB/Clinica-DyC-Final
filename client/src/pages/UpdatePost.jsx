@@ -183,7 +183,7 @@ export default function UpdatePost() {
             <TextInput
               type='text'
               placeholder='Celular'
-              required
+              // required
               id='celular'
               className='flex-1'
               onChange={(e) =>
@@ -194,7 +194,7 @@ export default function UpdatePost() {
                       <TextInput
               type='text'
               placeholder='Celular Emergencia'
-              required
+              // required
               id='celularemergencia'
               className='flex-1'
               onChange={(e) =>
@@ -207,7 +207,7 @@ export default function UpdatePost() {
             <TextInput
               type='text'
               placeholder='Email'
-              required
+              // required
               id='email'
               className='flex-1 pt-7'
               onChange={(e) =>
@@ -234,7 +234,7 @@ export default function UpdatePost() {
             <TextInput
               type='text'
               placeholder='Direccion'
-              required
+              // required
               id='direccion'
               className='flex-1'
               onChange={(e) =>
@@ -292,7 +292,7 @@ export default function UpdatePost() {
             placeholder='Alergias, patologias, etc'
             id='content'
             value={formData.content}            
-            required
+            // required
             onChange={(e) =>
               setFormData({ ...formData, content: e.target.value })
             }

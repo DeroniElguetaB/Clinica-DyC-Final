@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema(
     },
     contenido: {
       type: String,
-      required: true,
+      // required: true,
     },
     title: {
       type: String,
@@ -21,15 +21,15 @@ const postSchema = new mongoose.Schema(
     },
     celular: {
       type: String,
-      required: true,
+      // required: true,
     },
     celularemergencia: {
       type: String,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
     },
     edad: {
       type: String,
@@ -41,10 +41,8 @@ const postSchema = new mongoose.Schema(
     },
     direccion: {
       type: String,
-      required: true,
+      // required: true,
     },
-
-
     // image: {
     //   type: String,
     //   default:

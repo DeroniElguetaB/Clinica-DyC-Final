@@ -16,6 +16,7 @@
     "framer-motion": "^11.2.10",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "mern-blog": "file:..",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
